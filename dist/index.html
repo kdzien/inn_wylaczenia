@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+<body>
+
+    <div id="waiting-modal">
+        <div id="waiting-window">
+            <p id="infoPara" ></p>
+            <button type="button" class="btn btn-primary" id="closeModal" >Ok</button>
+        </div>
+        <div id="waiting-circle">
+
+        </div>
+    </div>
+    <div class="container">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Polmo</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Heko</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Rezaw</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <ul class="list-group steps-polmo">
+                <li class="list-group-item">
+                    <h1>Wybierz plik excela</h1>
+                    <div>
+                        <input  type="file" name="fileToUpload" id="fileToUpload">
+                        <button type="button" class="btn btn-primary" id="sendFileButton" >Wyslij plik</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <ul class="list-group steps-polmo">
+                    <li class="list-group-item">
+                        <!-- <div class="hide-list"></div> -->
+                        <h1>Automatyzacja polmo</h1>
+                        <div>
+                            <p>Dołącza komplety, w których występują rury z pliku</p>
+                            <button type="button" class="btn btn-info" id="autButton_polmo">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>clear_kpl_polmo_wyl</h1>
+                        <div>
+                            <p>Sprawdza, czy komplet się duplikuje i jest do włączenia i wyłączenia. Jeśli tak, usuwa te do włączenia.</p>
+                            <button type="button" class="btn btn-info" id="runProcedureButton">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>DELETE wylaczone_sku</h1>
+                        <div>
+                            <p>Usunięcie sku do włączenia z tabeli ee_all.wylaczone_sku</p>
+                            <button type="button" class="btn btn-danger" id="removeOnes">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>UPDATE wylaczone_aukcje_polmo</h1>
+                        <div>
+                            <p>Ustawia dzisiejszą datę włączenia na aukcjach do wznowienia</p>
+                            <button type="button" class="btn btn-warning" id="updateOnes">Uruchom</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <ul class="list-group steps-polmo">
+                        <li class="list-group-item">
+                            <!-- <div class="hide-list"></div> -->
+                            <h1>Procedura heko</h1>
+                            <div>
+                                <p>Dołącza komplety, w których występują rury z pliku</p>
+                                <button type="button" class="btn btn-info" id="autButton_heko">Uruchom</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">s...</div>
+        </div>
+        <div class="row">
+            
+            <div class="col-md-6">
+                <table class="table" id="excel-table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Sku</th>
+                        <th scope="col">wylaczenie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+api/config
+api/uploads
+api/vendor
+api/composer.lock
+node_modules
+package-lock.json
