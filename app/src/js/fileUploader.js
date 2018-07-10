@@ -5,6 +5,7 @@ export function fileLoader(){
     let sendFileButton = document.getElementById('sendFileButton')
     let autButton_polmo = document.getElementById('autButton_polmo')
     let autButton_heko = document.getElementById('autButton_heko')
+    let autButton_turbiny = document.getElementById('autButton_turbiny')
     let runProcedureButton = document.getElementById('runProcedureButton')
     let removeOnes = document.getElementById('removeOnes')
     let updateOnes = document.getElementById('updateOnes')
@@ -27,6 +28,14 @@ export function fileLoader(){
     autButton_polmo.addEventListener('click',e=>{
         waitingModal.toggleModal();
         autProcess().then(success=>{
+            waitingModal.showWindow(success.body);
+        }).catch(err=>{
+            waitingModal.showWindow(err.responseText);
+        })
+    })
+    autButton_turbiny.addEventListener('click',e=>{
+        waitingModal.toggleModal();
+        runProcedure().then(success=>{
             waitingModal.showWindow(success.body);
         }).catch(err=>{
             waitingModal.showWindow(err.responseText);

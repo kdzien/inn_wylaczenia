@@ -59,7 +59,9 @@ $app->get('/procedura/{product}', function ($request, $response, $args) {
         $procedure_query='CALL konradd.clear_kpl_polmo_wyl()';
     }else if($productValue=='Heko'){
         $procedure_query='CALL mateuszp.automatyzacja_heko()';
-    };
+    }else if($productValue=='Turbiny'){
+        $procedure_query='CALL mateuszp.automatyzacja_turbiny()';
+    };;
     $result = Controllers\Turns\runProcedure($procedure_query);
     if(strpos($result, 'ERROR') !== false ){
         return $response->withJson([

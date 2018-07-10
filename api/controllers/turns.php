@@ -16,7 +16,7 @@ function insertFromExcel($productValue){
     $Reader = new \SpreadsheetReader("uploads/".$productValue.".xls");
     $data = array();
     foreach ($Reader as $Row){	
-        if($productValue=='Polmo'){
+        if($productValue=='Polmo' || $productValue=='Turbiny'){
             array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1]));
         }else if($productValue=='Heko'){
             array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1], "kraj" => $Row[2]));
@@ -26,10 +26,12 @@ function insertFromExcel($productValue){
         $sql = "INSERT INTO konradd.wl_wyl_polmo (sku, do_wlaczenia, `data`) VALUES ";
     }else if($productValue=='Heko'){
         $sql = "INSERT INTO mateuszp.wl_wyl_heko (sku, do_wlaczenia,country, `data`) VALUES ";
+    }else if($productValue=='Turbiny'){
+        $sql = "INSERT INTO mateuszp.wl_wyl_turbiny (sku, do_wlaczenia, `data`) VALUES ";
     }
     
     foreach($data as $row){
-        if($productValue=='Polmo'){
+        if($productValue=='Polmo' || $productValue=='Turbiny'){
             $sql = $sql." ('$row->sku', $row->wylaczenie,current_date()), ";
         }else if($productValue=='Heko'){
             $sql = $sql." ('$row->sku', $row->wylaczenie,'$row->kraj',current_date()), ";
