@@ -16,10 +16,26 @@ function insertFromExcel($productValue){
     $Reader = new \SpreadsheetReader("uploads/".$productValue.".xls");
     $data = array();
     foreach ($Reader as $Row){	
-        if($productValue=='Polmo' || $productValue=='Turbiny'){
-            array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1]));
-        }else if($productValue=='Heko'){
-            array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1], "kraj" => $Row[2]));
+        if($productValue=='Polmo' ){
+            if(preg_match("/P/i",$Row[0])){
+                array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1]));
+            }else{
+                return  "ERROR: W kolumnie z sku jest jakies, ktoro nie jest polmo";
+            }
+        }
+        else if($productValue=='Turbiny'){
+            if(preg_match("/O/i",$Row[0])){
+                array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1]));
+            }else{
+                return  "ERROR: W kolumnie z sku jest jakies, ktoro nie jest turbina";
+            }
+        }
+        else if($productValue=='Heko'){
+            if(preg_match("/H/i",$Row[0])){
+                array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1], "kraj" => $Row[2]));
+            }else{
+                return  "ERROR: W kolumnie z sku jest jakies, ktoro nie jest heko";
+            }
         }
     }
     if($productValue=='Polmo'){
