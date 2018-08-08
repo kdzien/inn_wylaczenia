@@ -16,7 +16,10 @@
     "bootstrap": "^4.1.1",
     "browser-sync": "^2.24.5",
     "css-loader": "^0.28.11",
+    "dankmemes": "^1.0.0",
     "es2015": "0.0.0",
+    "get-meme-urls": "^1.0.1",
+    "memie-generator": "^2.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0"

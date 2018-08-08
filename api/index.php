@@ -15,6 +15,12 @@ $app->post('/addfile/{product}', function ($request, $response, $args) {
             'code'=>404
         ], 400);
     }
+    else if (!isset($_FILES['file']['name'])){
+        return $response->withJson([
+            'error'=>'Error: Nie wybrales pliku',
+            'code'=>404
+        ], 400);
+    }
     else {
         move_uploaded_file($_FILES['file']['tmp_name'], "uploads/".$productValue.".xls");
         $result = Controllers\Turns\insertFromExcel($productValue);

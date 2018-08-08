@@ -23,6 +23,13 @@ function insertFromExcel($productValue){
                 return  "ERROR: W kolumnie z sku jest jakies, ktoro nie jest polmo";
             }
         }
+        else if($productValue=='Rezaw'){
+            if(preg_match("/G|R|W|S/i",$Row[0])){
+                array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1], "kraj" => $Row[2]));
+            }else{
+                return  "ERROR: W kolumnie z sku jest jakies, ktoro nie jest z rezawu";
+            }
+        }
         else if($productValue=='Turbiny'){
             if(preg_match("/O/i",$Row[0])){
                 array_push($data,(object)array("sku" => $Row[0], "wylaczenie" => $Row[1]));
@@ -44,12 +51,14 @@ function insertFromExcel($productValue){
         $sql = "INSERT INTO mateuszp.wl_wyl_heko (sku, do_wlaczenia,country, `data`) VALUES ";
     }else if($productValue=='Turbiny'){
         $sql = "INSERT INTO mateuszp.wl_wyl_turbiny (sku, do_wlaczenia, `data`) VALUES ";
+    }else if($productValue=='Rezaw'){
+        $sql = "INSERT INTO konradd.wl_wyl_rezaw (sku, do_wlaczenia,country, `data`) VALUES ";
     }
     
     foreach($data as $row){
         if($productValue=='Polmo' || $productValue=='Turbiny'){
             $sql = $sql." ('$row->sku', $row->wylaczenie,current_date()), ";
-        }else if($productValue=='Heko'){
+        }else if($productValue=='Heko' || $productValue=='Rezaw'){
             $sql = $sql." ('$row->sku', $row->wylaczenie,'$row->kraj',current_date()), ";
         }
     } 
@@ -57,7 +66,7 @@ function insertFromExcel($productValue){
     try {
         $sql = substr($sql, 0, -2);
         $conn->exec($sql);
-        return true;
+        return true; 
     }catch(\PDOException $e){
         return "ERROR: ". "<br>" . $e->getMessage();
     }
@@ -78,9 +87,9 @@ function getCurrentFromDB(){
     }
 }
 
-function removeOns(){
+function removeOns($sql){
     global $conn;
-    $sql = "delete from konradd.wylaczone_sku where sku in ( SELECT sku FROM konradd.wl_wyl_polmo where do_wlaczenia=1 and data=current_date() )";
+    //$sql = "delete from konradd.wylaczone_sku where sku in ( SELECT sku FROM konradd.wl_wyl_polmo where do_wlaczenia=1 and data=current_date() )";
     try{
         $conn->exec($sql);
         return "Records deleted successfully";
@@ -88,9 +97,9 @@ function removeOns(){
         return "ERROR: <br>" . $e->getMessage();
     }
 }
-function updateOns(){
+function updateOns($sql){
     global $conn;
-    $sql = "update konradd.wylaczone_aukcje_polmo set data_wlaczenia=current_timestamp() where sku in (SELECT sku FROM konradd.wl_wyl_polmo where do_wlaczenia=1 and data=current_date()) and data_wlaczenia is null";
+    //$sql = "update konradd.wylaczone_aukcje_polmo set data_wlaczenia=current_timestamp() where sku in (SELECT sku FROM konradd.wl_wyl_polmo where do_wlaczenia=1 and data=current_date()) and data_wlaczenia is null";
     try{
         $stmt = $conn->prepare($sql);
         $stmt->execute();
