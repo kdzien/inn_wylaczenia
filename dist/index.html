@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <title>Wyłączenia v2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
 
 <body>
@@ -15,6 +17,10 @@
         </div>
     </div>
     <div class="container">
+<div class="row">
+    
+    <div class="col-md-8">
+        <div id="current-product"><p></p></div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-polmo-tab" data-toggle="tab" href="#nav-polmo" role="tab" aria-controls="nav-polmo" aria-selected="true">Polmo</a>
@@ -25,7 +31,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <ul class="list-group steps-polmo">
-                <li class="list-group-item">
+                <li class="list-group-item" style="border-bottom:solid 2px gray;">
                     <h1>Wybierz plik excela</h1>
                     <div>
                         <input  type="file" name="fileToUpload" id="fileToUpload">
@@ -47,23 +53,31 @@
                         <h1>clear_kpl_polmo_wyl</h1>
                         <div>
                             <p>Sprawdza, czy komplet się duplikuje i jest do włączenia i wyłączenia. Jeśli tak, usuwa te do włączenia.</p>
-                            <button type="button" class="btn btn-info" id="runProcedureButton">Uruchom</button>
+                            <button type="button" class="btn btn-info" id="clearKPLPOLMO">Uruchom</button>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <h1>DELETE wylaczone_sku</h1>
                         <div>
                             <p>Usunięcie sku do włączenia z tabeli ee_all.wylaczone_sku</p>
-                            <button type="button" class="btn btn-danger" id="removeOnes">Uruchom</button>
+                            <button type="button" class="btn btn-danger" id="removePolmo">Uruchom</button>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <h1>UPDATE wylaczone_aukcje_polmo</h1>
                         <div>
                             <p>Ustawia dzisiejszą datę włączenia na aukcjach do wznowienia</p>
-                            <button type="button" class="btn btn-warning" id="updateOnes">Uruchom</button>
+                            <button type="button" class="btn btn-warning" id="updatePolmo">Uruchom</button>
                         </div>
                     </li>
+                    <li class="list-group-item">
+                        <h1>Sprawdzenie poprawnosci wyłączeń</h1>
+                        <div>
+                            <p>sprawdza poprawnosc wygenerowanych wyłączeń</p>
+                            <button type="button" class="btn btn-info" id="checkPolmoTurns">Uruchom</button>
+                        </div>
+                    </li>
+                    
                 </ul>
             </div>
             <div class="tab-pane fade" id="nav-heko" role="tabpanel" aria-labelledby="nav-heko-tab">
@@ -90,6 +104,34 @@
                             <button type="button" class="btn btn-info" id="autButton_rezaw">Uruchom</button>
                         </div>
                     </li>
+                    <li class="list-group-item">
+                        <h1>clear_kpl_rezaw_wyl</h1>
+                        <div>
+                            <p>Sprawdza, czy komplet się duplikuje i jest do włączenia i wyłączenia. Jeśli tak, usuwa te do włączenia.</p>
+                            <button type="button" class="btn btn-info" id="clearKPLREZAW">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>DELETE wylaczone_sku</h1>
+                        <div>
+                            <p>Usunięcie sku do włączenia z tabeli ee_all.wylaczone_sku</p>
+                            <button type="button" class="btn btn-danger" id="removeRezaw">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>UPDATE wylaczone_aukcje_rezaw</h1>
+                        <div>
+                            <p>Ustawia dzisiejszą datę włączenia na aukcjach do wznowienia</p>
+                            <button type="button" class="btn btn-warning" id="updateRezaw">Uruchom</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h1>Sprawdzenie poprawnosci wyłączeń</h1>
+                        <div>
+                            <p>sprawdza poprawnosc wygenerowanych wyłączeń</p>
+                            <button type="button" class="btn btn-info" id="checkRezawTurns">Uruchom</button>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="tab-pane fade" id="nav-turbiny" role="tabpanel" aria-labelledby="nav-turbiny-tab">
@@ -104,6 +146,16 @@
                     </li>
                 </ul>
             </div>
+            
+            <ul class="list-group steps-polmo" style="">
+                <li class="list-group-item" style="    background-color: gray;
+                color: white;
+                border-radius: 0;">
+                    <div>
+                        <button type="button" class="btn btn-info" id="sendJobs" style="width:50%;margin:0 auto;padding:10px;">WRZUĆ JOBY</button>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="row">
             
@@ -120,6 +172,37 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class="col-md-4 instruction">
+        
+        <h2>Jak mają wyglądać pliki w środku (ZAPISAĆ DO XLS, tworzyć pliki w office): </h2>
+        <div class="instr-group">
+            <p><span>kolumna A</span> : sku</p>
+            <p><span>kolumna B</span> : 1 - do włączenia, 0 - do wyłączenia</p>
+            <p><span>kolumna C(heko,rezaw)</span> : GB - ANGLIA, ALL - FRANCJA,NIEMCY-POLSKA. Jak tu GB i ALL to dwie pozycje w pliku z tym sku.</p>
+            <div class="format-wrap">
+                <h3>Heko, Rezaw</h3>
+                <img src="./images/heko.png" />
+            </div>
+            <div class="format-wrap">
+                <h3>Polmo, Turbiny</h3>
+                <img src="./images/polmo.png" />
+            </div>
+        </div>
+        <h2>INSTRUKCJA</h2>
+        <div class="instr-group">
+            <ol>
+                <li>Wygrywamy plik produktu. Jak się wgra, Na górze wyświetli się obecnie generowany produkt</li>
+                <li>Po kolei uruchawmiamy wszystkie procedury dla danego produktu</li>
+                <li>Jak wszystkie beda zielone, klikamy przycisk na dole "Wrzuć Joby" i idziemy je puscic do dziobaka</li>
+            </ol>
+        </div>
+        <div>
+            <h2>Niektóre procedury mogą długo działać więc bez stresu jak się kółko za długo kręci.</h2>
+            
+        </div>
+    </div>
+</div>
     </div>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

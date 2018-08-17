@@ -9,6 +9,9 @@ module.exports = {
       filename: "bundle.js",
       publicPath: "/dist"
     },
+    mode: "development",
+    devtool: "source-map",
+    watch:true,
     module: {
       rules: [
         {
@@ -17,10 +20,13 @@ module.exports = {
         },
         {
           test: /\.js$/,
-          use: {
-            loader: "babel-loader",
-            options: { presets: ["env"] }
-          }
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [["env"]]
+                    }
+                }
         },
         {
           test: /\.scss$/,
@@ -38,7 +44,6 @@ module.exports = {
         }
       ]
     },
-    watch:true,
     plugins: [
         new BrowserSyncPlugin({
           // browse to http://localhost:3000/ during development,

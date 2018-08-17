@@ -75,6 +75,47 @@ table{
         }
     }
 }
+.instruction{
+    text-align:center;
+    p{
+        text-align:left;
+        span{
+            font-weight:bold;
+        }
+    }
+    h3{
+        font-size:20px;
+    }
+    h2{
+        font-size:16px;
+        background-color:#ccc;
+        padding:10px;
+    }
+    h1{
+        font-size:18px;
+    }
+    .instr-group{
+        background-color:white;
+        padding: 0px 20px;
+        ol{
+            text-align:left;
+        }
+    }
+    .format-wrap{
+        padding:2px;
+        border:gray 1px solid;
+        margin-bottom:5px;
+        img{
+
+        }
+    }
+}
+#current-product{
+ text-align:center;
+ span{
+     font-weight:bold;
+ }
+}
 @keyframes rotating{
     0% {
         transform: translate(-50%,-50%) rotate(0deg) ;
